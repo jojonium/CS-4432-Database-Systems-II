@@ -1,0 +1,152 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[american]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\setlength{\headheight}{15.2pt}
+\pagestyle{fancy}
+\lhead[]{Joseph Petitti}
+\rhead[]{Homework 1}
+\chead[]{Database Systems II}
+
+\begin{document}
+
+\section*{Problem 1}
+
+\subsection*{Q1}
+
+\[ \text{Disk capacity} = 10 \text{ surfaces} \times 8000 \text{ tracks} \times
+		208 \text{ sectors} \times 512 \text{ Bytes}  \]
+
+\[ \text{Disk capacity} = 8519680000 \text{ B} = 8320000 \text{ KB} = 8125
+		\text{ MB} = \textbf{7.935 GB} \]
+
+\subsection*{Q2}
+
+\[ 8519680000 \text{ B} \div 8192 \text{ Bytes per block} = \textbf{ 1040000
+				blocks} \]
+
+\subsection*{Q3}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{l c c c c c c r}
+		& Seek time & & Rotational latency & & Transfer time & &  Total \\
+		
+		\hline
+
+		Minimum & 0 ms & + & 0 ms & + & 0.8 ms & = & \textbf{0.8 ms} \\
+
+		Maximum & 17 ms & + & 11.1 ms & + & 0.8 ms & = & \textbf{28.9 ms}  \\
+
+		Average & 9 ms & + & 5.6 ms & + & 0.8 ms & = & \textbf{15.4 ms} \\
+
+	\end{tabular}
+\end{table}
+
+\subsection*{Q4}
+
+\begin{itemize}
+	\item $ 8192 \text{ Bytes per block} \div 128 \text{ Bytes per record} =
+			\textbf{64 records per block}  $
+	\item $ 100000 \text{ records} \div 64 \text{ records per block} =
+			\textbf{1563 blocks} $
+	\item $ 1563 \text{ blocks} \times 16 \text{ sectors per block} =
+			\textbf{25008 sectors} $
+\end{itemize}
+
+\subsection*{Q5}
+
+\[ 5.6 \text{ ms (initial half rotation)} + 1.2 \text{ ms (seek time)} + 8
+		\text{ ms (transfer time)} = \textbf{14.8 ms} \]
+
+\subsection*{Q6}
+
+\[ 208 \text{ sectors per track} \div 16 \text{ sectors per block} = 13 \text{
+				blocks per track} \]
+
+\[ 13 \text{ blocks per track} * 10 \text{ surfaces} = \textbf{130 blocks per
+				cylinder} \]
+
+\subsection*{Q7}
+
+The most efficient way to store blocks in a file, in order to speed up the
+sequential read of that file, is to start with $B_1$, $B_2$, ... $B_{10}$
+aligned under each other on all ten surfaces of the innermost cylinder. This
+way, once the disk arms are in position the first ten blocks can all be read in
+0.8 ms. Then the next ten blocks should be in the next sixteen sectors per
+surface in the direction of rotation on the same cylinder. This should continue
+until all 130 blocks on the innermost cylinder are filled. Then, the next ten
+blocks should be written on the second-to-innermost cylinder approximately 10\%
+of the circumference of the disk away from where $B_{130}$ was written. Once the
+disk arms are done reading $B_{130}$, they need to move out to the
+second-to-innermost track, which takes about 1.002 ms. In this time, the disk
+will have rotated by about 9.027\%, so if $B_{131}$ starts about 10\% of the
+disk circumference away from $B_{130}$ the disk arms will arrive at the right
+track just in time to start reading it.  Continue in the same spiral pattern out
+from the center of the disk until $B_{last}$.
+
+The average time to read this file is, in milliseconds:
+
+\[ 14.6 + 0.8 n + \left ( \left \lfloor{\frac{n}{130}}\right \rfloor \times
+				1.002 \right ) \]
+
+Where $n$ is the number of blocks in the file. The 14.6 ms accounts for initial
+5.6 ms of rotational latency and 9 ms of seek time. The time to read each block
+is 0.8 ms, multiplied by $n$. The final component is the floor of
+$ \frac{n}{130} $, which is the number of cylinders necessary to store the file,
+multiplied by the 1.002 ms it takes to seek to the next cylinder while reading.
+
+A file with 100,000 records, with each record being 128 bytes, would have 1,563
+blocks. This file's average read time would be:
+
+\[ 14.6 + (0.8 \times 1563) + \left ( \left \lfloor{\frac{1563}{130}}\right
+				\rfloor \times 1.002 \right ) = \textbf{1277 ms} \]
+
+\section*{Problem 2}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{ l c | l c }
+		\multicolumn{2}{c}{4-byte} &
+		\multicolumn{2}{c}{8-byte} \\
+
+		Field & Index & Field & Index \\
+		
+		\hline
+	
+		Header & 0 & Header & 0\\
+		ID & 8 & ID & 8 \\
+		Name & 12 & Name & 16 \\
+		Age & 40 & Age & 48 \\
+		DoB & 44 & DoB & 48 \\
+		Gender & 56 & Gender & 72 \\
+		Address & 60 & Address & 80 \\
+		State & 120 & State & 144
+	\end{tabular}
+\end{table}
+
+\subsection*{Q1}
+
+Each record would be 128 bytes.
+
+\subsection*{Q2}
+
+Each record would be 152 bytes.
+
+\subsection*{Q3}
+
+\subsubsection*{4-Byte Boundaries}
+
+\[ 4096 \text{ B} = 64 \text{ B} + ( 128 \text{ B} \times n ) \]
+
+\[ n = \textbf{31 records} \]
+
+\subsubsection*{8-Byte Boundaries}
+
+\[ 4096 \text{ B} = 64 \text{ B} + ( 152 \text{ B} \times n ) \]
+
+\[ n = \textbf{26 records} \]
+
+\end{document}
