@@ -89,20 +89,22 @@ from the center of the disk until $B_{last}$.
 
 The average time to read this file is, in milliseconds:
 
-\[ 14.6 + 0.8 n + \left ( \left \lfloor{\frac{n}{130}}\right \rfloor \times
-				1.002 \right ) \]
+\[ 14.6 + \frac{0.8 n}{10} + \left ( \left \lfloor{\frac{n}{130}}\right \rfloor
+				\times 1.002 \right ) \]
 
 Where $n$ is the number of blocks in the file. The 14.6 ms accounts for initial
 5.6 ms of rotational latency and 9 ms of seek time. The time to read each block
-is 0.8 ms, multiplied by $n$. The final component is the floor of
-$ \frac{n}{130} $, which is the number of cylinders necessary to store the file,
-multiplied by the 1.002 ms it takes to seek to the next cylinder while reading.
+is 0.8 ms, multiplied by $n$ divided by 10 (because ten blocks are read at a
+time). The final component is the floor of $ \frac{n}{130} $, which is the
+number of cylinders necessary to store the file, multiplied by the 1.002 ms it
+takes to seek to the next cylinder while reading.
 
 A file with 100,000 records, with each record being 128 bytes, would have 1,563
 blocks. This file's average read time would be:
 
-\[ 14.6 + (0.8 \times 1563) + \left ( \left \lfloor{\frac{1563}{130}}\right
-				\rfloor \times 1.002 \right ) = \textbf{1277 ms} \]
+\[ 14.6 + \frac{(0.8 \times 1563)}{10} + \left ( \left
+						\lfloor{\frac{1563}{130}}\right \rfloor \times 1.002
+		\right ) = \textbf{151.7 ms} \]
 
 \section*{Problem 2}
 
