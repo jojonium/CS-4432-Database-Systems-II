@@ -1,0 +1,68 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[american]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\setlength{\headheight}{15.2pt}
+\pagestyle{fancy}
+\lhead[]{Joseph Petitti}
+\rhead[]{Homework 2}
+\chead[]{Database Systems II}
+
+\begin{document}
+
+\section*{Problem 1}
+
+\subsection*{(a) LRU Replacement Policy}
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{l c c c c c c c c c c c c c c c}
+		Instruction: & 1* & 2* & 3* & \underline{1} & 4* & 5* & \underline{3} &
+		\underline{4} & 1 & 6 & 7 & 8* & 9* & 5 & 10 \\
+		\hline
+		Frame 1 & \textbf{1} & \textbf{1} & \textbf{1} & 1 & 1 & 1 & 1 & 1 & 1 &
+		1 & 1 & 1 & 1 & 1 & 10 \\
+		Frame 2 & & \textbf{2} & \textbf{2} & \textbf{2} & \textbf{2} &
+		\textbf{2} & \textbf{2} & \textbf{2} & \textbf{2} & \textbf{2} &
+		\textbf{2} & \textbf{2} & \textbf{2} & \textbf{2} & \textbf{2} \\
+		Frame 3 & & & \textbf{3} & \textbf{3} & \textbf{3} & \textbf{3} & 3 & 3
+		& 3 & 3 & 3 & \textbf{8} & \textbf{8} & \textbf{8} & \textbf{8} \\
+		Frame 4 & & & & & \textbf{4} & \textbf{4} & \textbf{4} & 4 & 4 & 4 & 4 &
+		4 & \textbf{9} & \textbf{9} & \textbf{9} \\
+		Frame 5 & & & & & & \textbf{5} & \textbf{5} & \textbf{5} & \textbf{5} &
+		\textbf{5} & \textbf{5} & \textbf{5} & \textbf{5} & \textbf{5} &
+		\textbf{5} \\
+		Frame 6 & & & & & & & & & & 6 & 6 & 6 & 6 & 6 & 6 \\
+		Frame 7 & & & & & & & & & & & 7 & 7 & 7 & 7 & 7 \\
+	\end{tabular}
+\end{table}
+
+Note: pages in bold are pinned.
+
+\subsection*{(b) Clock Replacement Policy}
+\centering
+
+\subsubsection*{1*}
+
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	\def \margin {8}
+	
+	\node[draw, rectangle] (first) at ({360/\n * 0}:\radius) {1};
+	\node[draw, rectangle] at ({360/\n * 1}:\radius) {};
+	\node[draw, rectangle] at ({360/\n * 2}:\radius) {};
+	\node[draw, rectangle] at ({360/\n * 3}:\radius) {};
+	\node[draw, rectangle] at ({360/\n * 4}:\radius) {};
+	\node[draw, rectangle] at ({360/\n * 5}:\radius) {};
+	\node[draw, rectangle] at ({360/\n * 6}:\radius) {};
+	\node[] (maintopic) at (0:0) {};
+
+	\draw[->, very thick, >=latex] (maintopic) -- (first);
+
+\end{tikzpicture}
+
+\end{document}
