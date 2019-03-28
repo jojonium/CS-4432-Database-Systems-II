@@ -45,24 +45,384 @@ Note: pages in bold are pinned.
 \subsection*{(b) Clock Replacement Policy}
 \centering
 
-\subsubsection*{1*}
+Note: a subscrpt ``p'' indicates that a page is pinned, and a subscript ``r''
+indicates that the reference bit is set to 1.
 
+\subsubsection*{1*}
 \begin{tikzpicture}
 	\def \n {7}
 	\def \radius {3cm}
-	\def \margin {8}
 	
-	\node[draw, rectangle] (first) at ({360/\n * 0}:\radius) {1};
-	\node[draw, rectangle] at ({360/\n * 1}:\radius) {};
-	\node[draw, rectangle] at ({360/\n * 2}:\radius) {};
-	\node[draw, rectangle] at ({360/\n * 3}:\radius) {};
-	\node[draw, rectangle] at ({360/\n * 4}:\radius) {};
-	\node[draw, rectangle] at ({360/\n * 5}:\radius) {};
-	\node[draw, rectangle] at ({360/\n * 6}:\radius) {};
 	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$1_{pr}$};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{ };
+
+	\draw[->, very thick, >=latex] (maintopic) -- (second);
+\end{tikzpicture}
+
+\subsubsection*{2*}
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	
+	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$1_{pr}$};
+		{\textbf{\textit{1}}};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{$2_{pr}$};
+		{\textbf{\textit{2}}};
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{ };
+
+	\draw[->, very thick, >=latex] (maintopic) -- (third);
+\end{tikzpicture}
+
+\subsubsection*{3*}
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	
+	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$1_{pr}$};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{$2_{pr}$};
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{$3_{pr}$};
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{ };
+
+	\draw[->, very thick, >=latex] (maintopic) -- (fourth);
+\end{tikzpicture}
+
+\subsubsection*{\underline{1}}
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	
+	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$1_{r}$};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{$2_{pr}$};
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{$3_{pr}$};
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{ };
+
+	\draw[->, very thick, >=latex] (maintopic) -- (fourth);
+\end{tikzpicture}
+
+\subsubsection*{4*}
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	
+	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$1_{r}$};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{$2_{pr}$};
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{$3_{pr}$};
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{$4_{pr}$};
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{ };
+
+	\draw[->, very thick, >=latex] (maintopic) -- (fifth);
+\end{tikzpicture}
+
+\subsubsection*{5*}
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	
+	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$1_{r}$};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{$2_{pr}$};
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{$3_{pr}$};
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{$4_{pr}$};
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{$5_{pr}$};
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{ };
+
+	\draw[->, very thick, >=latex] (maintopic) -- (sixth);
+\end{tikzpicture}
+
+\subsubsection*{\underline{3}}
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	
+	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$1_{r}$};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{$2_{pr}$};
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{$3_{r}$};
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{$4_{pr}$};
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{$5_{pr}$};
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{ };
+
+	\draw[->, very thick, >=latex] (maintopic) -- (sixth);
+\end{tikzpicture}
+
+\subsubsection*{\underline{4}}
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	
+	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$1_{r}$};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{$2_{pr}$};
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{$3_{r}$};
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{$4_{r}$};
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{$5_{pr}$};
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{ };
+
+	\draw[->, very thick, >=latex] (maintopic) -- (sixth);
+\end{tikzpicture}
+
+\subsubsection*{1}
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	
+	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$1_{r}$};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{$2_{pr}$};
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{$3_{r}$};
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{$4_{r}$};
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{$5_{pr}$};
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{ };
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{ };
+
+	\draw[->, very thick, >=latex] (maintopic) -- (sixth);
+\end{tikzpicture}
+
+\subsubsection*{6}
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	
+	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$1_{r}$};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{$2_{pr}$};
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{$3_{r}$};
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{$4_{r}$};
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{$5_{pr}$};
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{$6_{r}$};
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{ };
+
+	\draw[->, very thick, >=latex] (maintopic) -- (seventh);
+\end{tikzpicture}
+
+\subsubsection*{7}
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	
+	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$1_{r}$};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{$2_{pr}$};
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{$3_{r}$};
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{$4_{r}$};
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{$5_{pr}$};
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{$6_{r}$};
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{$7_{r}$};
 
 	\draw[->, very thick, >=latex] (maintopic) -- (first);
+\end{tikzpicture}
 
+\subsubsection*{8*}
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	
+	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$8_{pr}$};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{$2_{pr}$};
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{$3$};
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{$4$};
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{$5_{pr}$};
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{$6$};
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{$7$};
+
+	\draw[->, very thick, >=latex] (maintopic) -- (second);
+\end{tikzpicture}
+
+\subsubsection*{9*}
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	
+	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$8_{pr}$};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{$2_{pr}$};
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{$9_{pr}$};
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{$4$};
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{$5_{pr}$};
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{$6$};
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{$7$};
+
+	\draw[->, very thick, >=latex] (maintopic) -- (fourth);
+\end{tikzpicture}
+
+\subsubsection*{5}
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	
+	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$8_{pr}$};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{$2_{pr}$};
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{$9_{pr}$};
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{$4$};
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{$5_{pr}$};
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{$6$};
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{$7$};
+
+	\draw[->, very thick, >=latex] (maintopic) -- (fourth);
+\end{tikzpicture}
+
+\subsubsection*{10}
+\begin{tikzpicture}
+	\def \n {7}
+	\def \radius {3cm}
+	
+	\node[] (maintopic) at (0:0) {};
+	
+	\node[draw, rectangle] (first)   at ({360/\n * 0 + 90}:\radius)
+		{$8_{pr}$};
+	\node[draw, rectangle] (second)  at ({360/\n * 6 + 90}:\radius) 
+		{$2_{pr}$};
+	\node[draw, rectangle] (third)   at ({360/\n * 5 + 90}:\radius) 
+		{$9_{pr}$};
+	\node[draw, rectangle] (fourth)  at ({360/\n * 4 + 90}:\radius) 
+		{$10_{r}$};
+	\node[draw, rectangle] (fifth)   at ({360/\n * 3 + 90}:\radius) 
+		{$5_{pr}$};
+	\node[draw, rectangle] (sixth)   at ({360/\n * 2 + 90}:\radius) 
+		{$6$};
+	\node[draw, rectangle] (seventh) at ({360/\n * 1 + 90}:\radius) 
+		{$7$};
+
+	\draw[->, very thick, >=latex] (maintopic) -- (fifth);
 \end{tikzpicture}
 
 \end{document}
