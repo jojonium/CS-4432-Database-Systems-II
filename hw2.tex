@@ -43,10 +43,12 @@
 Note: pages in bold are pinned.
 
 \subsection*{(b) Clock Replacement Policy}
-\centering
 
-Note: a subscrpt ``p'' indicates that a page is pinned, and a subscript ``r''
-indicates that the reference bit is set to 1.
+Note: a subscrpt \textit{p} indicates that a page is pinned, and a subscript
+\textit{r} indicates that the reference bit is set to 1.
+
+{
+\centering
 
 \subsubsection*{1*}
 \begin{tikzpicture}
@@ -424,5 +426,23 @@ indicates that the reference bit is set to 1.
 
 	\draw[->, very thick, >=latex] (maintopic) -- (fifth);
 \end{tikzpicture}
+
+}
+
+\section*{Problem 2}
+
+\begin{enumerate}
+	\item Yes. Each entry in the index would contain the value of K1 (20 bytes)
+			and a pointer to the corresponding record (8 bytes). The entire data
+			file contains 20 million records, so the index file would be 28
+			million bytes. Each block can contain $\lfloor 8,192 / 28 \rfloor =
+			292$ index records. The entire index would therefore be $\lceil
+			28,000,000 / 292 \rceil = 95,891$ blocks.
+	\item Yes. Each entry in the index would contain a pointer to the start of a
+			block in the data file, and the value of K1 for the first record in
+			that block. Since each block in the data file contains 20 records,
+			you would need $1,000,000 / 20 = 50,000$ entries in the index, which
+			would take up $\lceil 50,000 / 292 \rceil = 172$ blocks.
+\end{enumerate}
 
 \end{document}
