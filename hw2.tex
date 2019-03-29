@@ -476,38 +476,43 @@ Note: a subscrpt \textit{p} indicates that a page is pinned, and a subscript
 
 \section*{Problem 3}
 
+\begin{center}
 \begin{tikzpicture}
 	\tikzstyle{bplus}=[rectangle split, rectangle split horizontal, rectangle
 		split parts=3, draw]
 	\tikzstyle{edge from parent}=[draw=none]
 	\tikzstyle{every node}=[bplus]
-	\tikzstyle{level 1}=[sibling distance=15em]
-	\tikzstyle{level 2}=[sibling distance=5em]
-	
-	\node[bplus] (root) {
+	\tikzstyle{level 1}=[sibling distance=18em]
+	\tikzstyle{level 2}=[sibling distance=6em]
+
+		\node[bplus, label={N1}] (root) {
 		\nodepart{one} 13
 		\nodepart{two} \hphantom{13}
 		\nodepart{three} \hphantom{13}
 	}
 	child {
-		node (lv2a) {
+		node[label={N2}] (lv2a) {
 			\nodepart{one} 7
 			\nodepart{two} \hphantom{7}
 			\nodepart{three} \hphantom{7}
 		}
-		child {node (leafa) {1 \nodepart{two} 3 \nodepart{three} 5}}
-		child {node (leafb) {7 \nodepart{two} 11 \nodepart{three} }}
+		child {node[label={N4}] (leafa) {1 \nodepart{two} 3 \nodepart{three} 5}}
+		child {node[label={\hspace{1cm}N5}] (leafb) {7 \nodepart{two} 11
+		\nodepart{three} }}
 	}
 	child {
-		node (lv2b) {
+		node[label={N3}] (lv2b) {
 			\nodepart{one} 23
 			\nodepart{two} 31
 			\nodepart{three} 43
 		}
-		child {node (leafc) {13 \nodepart{two} 17 \nodepart{three} 19}}
-		child {node (leafd) {23 \nodepart{two} 29 \nodepart{three} }}
-		child {node (leafe) {31 \nodepart{two} 37 \nodepart{three} 41}}
-		child {node (leaff) {43 \nodepart{two} 47 \nodepart{three} }}
+		child {node[label={N6}] (leafc) {13 \nodepart{two} 17 \nodepart{three}
+		19}}
+		child {node[label={N7}] (leafd) {23 \nodepart{two} 29 \nodepart{three}
+		}}
+		child {node[label={\hspace{1cm}N8}] (leafe) {31 \nodepart{two} 37
+		\nodepart{three} 41}}
+		child {node[label={N9}] (leaff) {43 \nodepart{two} 47 \nodepart{three}}}
 	};
 	
 		\draw [->, thick, >=latex] (root.one west) -- (lv2a);
@@ -522,24 +527,404 @@ Note: a subscrpt \textit{p} indicates that a page is pinned, and a subscript
 		\draw [->, thick, >=latex] ($(lv2b.two south) !.5! (lv2b.three south)$)
 		-- (leafe);
 		\draw [->, thick, >=latex] (lv2b.three east) -- (leaff);
-
-	%
-	%\node {13 \nodepart{two} \hphantom{1}} [->]
-	%	child {node {3 \nodepart{two} 7}
-	%		child {node {1 \nodepart{two} 2}}
-	%		child {node {4 \nodepart{two} 6}}
-	%		child {node {8 \nodepart{two} 9}}    
-  	%	} 
-	%	child {node {21 \nodepart{two} 28 \nodepart{three} 32 \nodepart{four} 50}
-	%		child {node {17 \nodepart{two} 20}}
-	%		child {node {22 \nodepart{two} 25}}
-	%		child {node {28 \nodepart{two} 30}}    
-	%		child[sibling distance=25mm] {node {34 \nodepart{two} 38
-	%		\nodepart{three} 44 \nodepart{four} 47}}    
-	%		child[sibling distance=25mm] {node {53 \nodepart{two} 54
-	%		\nodepart{three} 60 \nodepart{four} 88}}    
-  	%	};
 \end{tikzpicture}
+\end{center}
+
+\subsubsection*{1.}
+
+First the root note, N1, would be accessed, then the program would follow the
+pointer to the right of the key 13 because $35 > 13$ to N3. From there, it would
+follow the pointer between 31 and 43 to N8.  At N8 it would realize that the
+search key 35 is not in the data file, because the leaf layer is dense.
+
+\subsubsection*{2.}
+
+First the root node, N1, would be accessed, then the program would follow the
+pointer to the left of the key 13 because $9 < 35$ to N2.  From there, it would
+follow the pointer to the right of key 7 to N5.  At N5, it would retrive the key
+11, then follow the leaf pointer to N6. Here, it would retrieve keys 13, 17, and
+19, then follow the leaf pointer to N7. At this point it would stop, since $23 >
+21$.
+
+\newgeometry{left=1cm,right=1cm,top=1in}
+
+\subsubsection*{3.}
+
+\begin{center}
+\begin{tikzpicture}
+	\tikzstyle{bplus}=[rectangle split, rectangle split horizontal, rectangle
+		split parts=3, draw]
+	\tikzstyle{edge from parent}=[draw=none]
+	\tikzstyle{every node}=[bplus]
+	\tikzstyle{level 1}=[sibling distance=18em]
+	\tikzstyle{level 2}=[sibling distance=5em]
+
+		\node[bplus, label={N1}] (root) {
+		\nodepart{one} 13
+		\nodepart{two} \hphantom{13}
+		\nodepart{three} \hphantom{13}
+	}
+	child {
+		node[label={N2}] (lv2a) {
+			\nodepart{one} 3
+			\nodepart{two} 7
+			\nodepart{three} \hphantom{7}
+		}
+		child {node[label={N4}] (leafa) {1 \nodepart{two} 3 \nodepart{three} }}
+		child {node[label={\hspace{-1mm}N10}] (leafg) {4 \nodepart{two} 5
+		\nodepart{three} }}
+		child {node[label={\hspace{1cm}N5}] (leafb) {7 \nodepart{two} 11
+		\nodepart{three} }}
+	}
+	child {
+		node[label={N3}] (lv2b) {
+			\nodepart{one} 23
+			\nodepart{two} 31
+			\nodepart{three} 43
+		}
+		child {node[label={N6}] (leafc) {13 \nodepart{two} 17 \nodepart{three}
+		19}}
+		child {node[label={N7}] (leafd) {23 \nodepart{two} 29 \nodepart{three}
+		}}
+		child {node[label={\hspace{1cm}N8}] (leafe) {31 \nodepart{two} 37
+		\nodepart{three} 41}}
+		child {node[label={N9}] (leaff) {43 \nodepart{two} 47 \nodepart{three}}}
+	};
+	
+		\draw [->, thick, >=latex] (root.one west) -- (lv2a);
+		\draw [->, thick, >=latex] ($(root.one south) !.5! (root.two south)$) --
+		(lv2b);
+		\draw [->, thick, >=latex] (lv2a.one west) -- (leafa);
+		\draw [->, thick, >=latex] ($(lv2a.one south) !.5! (lv2a.two south)$) --
+		(leafg);
+		\draw [->, thick, >=latex] (lv2b.one west) -- (leafc);
+		\draw [->, thick, >=latex] ($(lv2b.one south) !.5! (lv2b.two south)$) --
+		(leafd);
+		\draw [->, thick, >=latex] ($(lv2b.two south) !.5! (lv2b.three south)$)
+		-- (leafe);
+		\draw [->, thick, >=latex] (lv2b.three east) -- (leaff);
+		\draw [->, thick, >=latex] ($(lv2a.two south) !.5! (lv2a.three south)$)
+		-- (leafb);
+\end{tikzpicture}
+\end{center}
+
+\subsubsection*{4.}
+
+After insertion of key 14:
+
+\begin{center}
+\begin{tikzpicture}
+	\tikzstyle{bplus}=[rectangle split, rectangle split horizontal, rectangle
+		split parts=3, draw]
+	\tikzstyle{edge from parent}=[draw=none]
+	\tikzstyle{every node}=[bplus]
+	\tikzstyle{level 1}=[sibling distance=15em]
+	\tikzstyle{level 2}=[sibling distance=5em]
+
+		\node[bplus, label={N1}] (root) {
+		\nodepart{one} 13
+		\nodepart{two} 31
+		\nodepart{three} \hphantom{13}
+	}
+	child {
+		node[label={N2}] (lv2a) {
+			\nodepart{one} 3
+			\nodepart{two} 7
+			\nodepart{three} \hphantom{7}
+		}
+		child {node[label={N4}] (leafa) {1 \nodepart{two} 3 \nodepart{three} }}
+		child {node[label={\hspace{-1mm}N10}] (leafg) {4 \nodepart{two} 5
+		\nodepart{three} }}
+		child {node[label={\hspace{.5cm}N5}] (leafb) {7 \nodepart{two} 11
+		\nodepart{three} }}
+	}
+	child{
+		node[label={\hspace{-2mm}N12}] (lv2c) {
+			\nodepart{one} 17
+			\nodepart{two} 23
+		}
+		child {node[label={N6}] (leafc) {13 \nodepart{two} 14 \nodepart{three}}}
+		child {node[label={N11}] (leafh) {17 \nodepart{two} 19 \nodepart{three}
+		}}
+		child {node[label={\hspace{5mm}N7}] (leafd) {23 \nodepart{two} 29 \nodepart{three}
+		}}
+	}
+	child {
+		node[label={N3}] (lv2b) {
+			\nodepart{one} 43
+			\nodepart{two} \hphantom{43}
+			\nodepart{three} \hphantom{43}
+		}
+		child {node[label={\hspace{0pt}N8}] (leafe) {31 \nodepart{two} 37
+		\nodepart{three} 41}}
+		child {node[label={\hspace{1cm}N9}] (leaff) {43 \nodepart{two} 47
+		\nodepart{three}}}
+	};
+	
+		\draw [->, thick, >=latex] (root.one west) -- (lv2a);
+		\draw [->, thick, >=latex] ($(root.one south) !.5! (root.two south)$) --
+		(lv2c);
+		\draw [->, thick, >=latex] ($(root.two south) !.5! (root.three south)$)
+		-- (lv2b);
+		\draw [->, thick, >=latex] (lv2a.one west) -- (leafa);
+		\draw [->, thick, >=latex] ($(lv2a.one south) !.5! (lv2a.two south)$) --
+		(leafg);
+		\draw [->, thick, >=latex] (lv2b.one west) -- (leafe);
+		\draw [->, thick, >=latex] ($(lv2b.one south) !.5! (lv2b.two south)$) --
+		(leaff);
+		\draw [->, thick, >=latex] ($(lv2a.two south) !.5! (lv2a.three south)$)
+		-- (leafb);
+		\draw [->, thick, >=latex] (lv2c.one west) -- (leafc);
+		\draw [->, thick, >=latex] ($(lv2c.one south) !.5! (lv2c.two south)$)
+		-- (leafh);
+		\draw [->, thick, >=latex] ($(lv2c.two south) !.5! (lv2c.three south)$)
+		-- (leafd);
+\end{tikzpicture}
+\end{center}
+
+After insertion of key 15:
+
+\begin{center}
+\begin{tikzpicture}
+	\tikzstyle{bplus}=[rectangle split, rectangle split horizontal, rectangle
+		split parts=3, draw]
+	\tikzstyle{edge from parent}=[draw=none]
+	\tikzstyle{every node}=[bplus]
+	\tikzstyle{level 1}=[sibling distance=15em]
+	\tikzstyle{level 2}=[sibling distance=5em]
+
+		\node[bplus, label={N1}] (root) {
+		\nodepart{one} 13
+		\nodepart{two} 31
+		\nodepart{three} \hphantom{13}
+	}
+	child {
+		node[label={N2}] (lv2a) {
+			\nodepart{one} 3
+			\nodepart{two} 7
+			\nodepart{three} \hphantom{7}
+		}
+		child {node[label={N4}] (leafa) {1 \nodepart{two} 3 \nodepart{three} }}
+		child {node[label={\hspace{-1mm}N10}] (leafg) {4 \nodepart{two} 5
+		\nodepart{three} }}
+		child {node[label={\hspace{.5cm}N5}] (leafb) {7 \nodepart{two} 11
+		\nodepart{three} }}
+	}
+	child{
+		node[label={\hspace{-2mm}N12}] (lv2c) {
+			\nodepart{one} 17
+			\nodepart{two} 23
+		}
+		child {node[label={N6}] (leafc) {13 \nodepart{two} 14 \nodepart{three}
+		15}}
+		child {node[label={N11}] (leafh) {17 \nodepart{two} 19 \nodepart{three}
+		}}
+		child {node[label={\hspace{5mm}N7}] (leafd) {23 \nodepart{two} 29 \nodepart{three}
+		}}
+	}
+	child {
+		node[label={N3}] (lv2b) {
+			\nodepart{one} 43
+			\nodepart{two} \hphantom{43}
+			\nodepart{three} \hphantom{43}
+		}
+		child {node[label={\hspace{0pt}N8}] (leafe) {31 \nodepart{two} 37
+		\nodepart{three} 41}}
+		child {node[label={\hspace{1cm}N9}] (leaff) {43 \nodepart{two} 47
+		\nodepart{three}}}
+	};
+	
+		\draw [->, thick, >=latex] (root.one west) -- (lv2a);
+		\draw [->, thick, >=latex] ($(root.one south) !.5! (root.two south)$) --
+		(lv2c);
+		\draw [->, thick, >=latex] ($(root.two south) !.5! (root.three south)$)
+		-- (lv2b);
+		\draw [->, thick, >=latex] (lv2a.one west) -- (leafa);
+		\draw [->, thick, >=latex] ($(lv2a.one south) !.5! (lv2a.two south)$) --
+		(leafg);
+		\draw [->, thick, >=latex] (lv2b.one west) -- (leafe);
+		\draw [->, thick, >=latex] ($(lv2b.one south) !.5! (lv2b.two south)$) --
+		(leaff);
+		\draw [->, thick, >=latex] ($(lv2a.two south) !.5! (lv2a.three south)$)
+		-- (leafb);
+		\draw [->, thick, >=latex] (lv2c.one west) -- (leafc);
+		\draw [->, thick, >=latex] ($(lv2c.one south) !.5! (lv2c.two south)$)
+		-- (leafh);
+		\draw [->, thick, >=latex] ($(lv2c.two south) !.5! (lv2c.three south)$)
+		-- (leafd);
+\end{tikzpicture}
+\end{center}
+
+After insertion of key 16:
+
+\begin{center}
+\begin{tikzpicture}
+	\tikzstyle{bplus}=[rectangle split, rectangle split horizontal, rectangle
+		split parts=3, draw]
+	\tikzstyle{edge from parent}=[draw=none]
+	\tikzstyle{every node}=[bplus]
+	\tikzstyle{level 1}=[sibling distance=17em]
+	\tikzstyle{level 2}=[sibling distance=5em]
+
+		\node[bplus, label={N1}] (root) {
+		\nodepart{one} 13
+		\nodepart{two} 31
+		\nodepart{three} \hphantom{13}
+	}
+	child {
+		node[label={N2}] (lv2a) {
+			\nodepart{one} 3
+			\nodepart{two} 7
+			\nodepart{three} \hphantom{7}
+		}
+		child {node[label={N4}] (leafa) {1 \nodepart{two} 3 \nodepart{three} }}
+		child {node[label={\hspace{-1mm}N10}] (leafg) {4 \nodepart{two} 5
+		\nodepart{three} }}
+		child {node[label={\hspace{.5cm}N5}] (leafb) {7 \nodepart{two} 11
+		\nodepart{three} }}
+	}
+	child{
+		node[label={\hspace{-2mm}N12}] (lv2c) {
+			\nodepart{one} 15
+			\nodepart{two} 17
+			\nodepart{three} 23
+		}
+		child {node[label={N6}] (leafc) {13 \nodepart{two} 14 \nodepart{three}
+		}}
+		child {node[label={N13}] (leafi) {15 \nodepart{two} 16 \nodepart{three}
+		}}
+		child {node[label={\hspace{1.5cm}N11}] (leafh) {17 \nodepart{two} 19
+		\nodepart{three} }}
+		child {node[label={\hspace{5mm}N7}] (leafd) {23 \nodepart{two} 29
+		\nodepart{three}
+		}}
+	}
+	child {
+		node[label={N3}] (lv2b) {
+			\nodepart{one} 43
+			\nodepart{two} \hphantom{43}
+			\nodepart{three} \hphantom{43}
+		}
+		child {node[label={\hspace{0pt}N8}] (leafe) {31 \nodepart{two} 37
+		\nodepart{three} 41}}
+		child {node[label={\hspace{1cm}N9}] (leaff) {43 \nodepart{two} 47
+		\nodepart{three}}}
+	};
+	
+		\draw [->, thick, >=latex] (root.one west) -- (lv2a);
+		\draw [->, thick, >=latex] ($(root.one south) !.5! (root.two south)$) --
+		(lv2c);
+		\draw [->, thick, >=latex] ($(root.two south) !.5! (root.three south)$)
+		-- (lv2b);
+		\draw [->, thick, >=latex] (lv2a.one west) -- (leafa);
+		\draw [->, thick, >=latex] ($(lv2a.one south) !.5! (lv2a.two south)$) --
+		(leafg);
+		\draw [->, thick, >=latex] (lv2b.one west) -- (leafe);
+		\draw [->, thick, >=latex] ($(lv2b.one south) !.5! (lv2b.two south)$) --
+		(leaff);
+		\draw [->, thick, >=latex] ($(lv2a.two south) !.5! (lv2a.three south)$)
+		-- (leafb);
+		\draw [->, thick, >=latex] (lv2c.one west) -- (leafc);
+		\draw [->, thick, >=latex] ($(lv2c.one south) !.5! (lv2c.two south)$)
+		-- (leafi);
+		\draw [->, thick, >=latex] ($(lv2c.two south) !.5! (lv2c.three south)$)
+		-- (leafh);
+		\draw [->, thick, >=latex] (lv2c.three east) -- (leafd);
+\end{tikzpicture}
+\end{center}
 
 
+
+\subsubsection*{5.}
+
+Assuming we're still using the modified tree from the previous question, first
+the root, N1, would be accessed, then the program would follow the pointer to
+the left of 13 because $6 < 13$ to N2. From there, it would follow the pointer
+between 3 and 7 to N10. Finding no keys in the range, it would follow the leaf
+pointer right to N5, grabbing keys 7 and 11 from it. It would then continue
+right to N13, where it would grab 13 and then exit.
+
+\subsubsection*{6.}
+
+Assuming we're still using the same tree from the previous questions, this is
+the result of deleting key 23:
+
+\begin{center}
+\begin{tikzpicture}
+	\tikzstyle{bplus}=[rectangle split, rectangle split horizontal, rectangle
+		split parts=3, draw]
+	\tikzstyle{edge from parent}=[draw=none]
+	\tikzstyle{every node}=[bplus]
+	\tikzstyle{level 1}=[sibling distance=17em]
+	\tikzstyle{level 2}=[sibling distance=5em]
+
+		\node[bplus, label={N1}] (root) {
+		\nodepart{one} 13
+		\nodepart{two} 31
+		\nodepart{three} \hphantom{13}
+	}
+	child {
+		node[label={N2}] (lv2a) {
+			\nodepart{one} 3
+			\nodepart{two} 7
+			\nodepart{three} \hphantom{7}
+		}
+		child {node[label={N4}] (leafa) {1 \nodepart{two} 3 \nodepart{three} }}
+		child {node[label={\hspace{-1mm}N10}] (leafg) {4 \nodepart{two} 5
+		\nodepart{three} }}
+		child {node[label={\hspace{.5cm}N5}] (leafb) {7 \nodepart{two} 11
+		\nodepart{three} }}
+	}
+	child{
+		node[label={\hspace{-2mm}N12}] (lv2c) {
+			\nodepart{one} 15
+			\nodepart{two} 17
+			\nodepart{three} 23
+		}
+		child {node[label={N6}] (leafc) {13 \nodepart{two} 14 \nodepart{three}
+		}}
+		child {node[label={N13}] (leafi) {15 \nodepart{two} 16 \nodepart{three}
+		}}
+		child {node[label={\hspace{1.5cm}N11}] (leafh) {17 \nodepart{two} 19
+		\nodepart{three} }}
+		child {node[label={\hspace{5mm}N7}] (leafd) {29 \nodepart{two} 31
+		\nodepart{three}
+		}}
+	}
+	child {
+		node[label={N3}] (lv2b) {
+			\nodepart{one} 43
+			\nodepart{two} \hphantom{43}
+			\nodepart{three} \hphantom{43}
+		}
+		child {node[label={\hspace{0pt}N8}] (leafe) {37 \nodepart{two} 41
+		\nodepart{three} }}
+		child {node[label={\hspace{1cm}N9}] (leaff) {43 \nodepart{two} 47
+		\nodepart{three}}}
+	};
+	
+		\draw [->, thick, >=latex] (root.one west) -- (lv2a);
+		\draw [->, thick, >=latex] ($(root.one south) !.5! (root.two south)$) --
+		(lv2c);
+		\draw [->, thick, >=latex] ($(root.two south) !.5! (root.three south)$)
+		-- (lv2b);
+		\draw [->, thick, >=latex] (lv2a.one west) -- (leafa);
+		\draw [->, thick, >=latex] ($(lv2a.one south) !.5! (lv2a.two south)$) --
+		(leafg);
+		\draw [->, thick, >=latex] (lv2b.one west) -- (leafe);
+		\draw [->, thick, >=latex] ($(lv2b.one south) !.5! (lv2b.two south)$) --
+		(leaff);
+		\draw [->, thick, >=latex] ($(lv2a.two south) !.5! (lv2a.three south)$)
+		-- (leafb);
+		\draw [->, thick, >=latex] (lv2c.one west) -- (leafc);
+		\draw [->, thick, >=latex] ($(lv2c.one south) !.5! (lv2c.two south)$)
+		-- (leafi);
+		\draw [->, thick, >=latex] ($(lv2c.two south) !.5! (lv2c.three south)$)
+		-- (leafh);
+		\draw [->, thick, >=latex] (lv2c.three east) -- (leafd);
+\end{tikzpicture}
+\end{center}
+
+
+\restoregeometry
 \end{document}
