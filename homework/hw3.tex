@@ -1,0 +1,195 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[american]{babel}
+\usepackage[margin=1in]{geometry}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usetikzlibrary{shapes, calc}
+\setlength{\headheight}{15.2pt}
+\pagestyle{fancy}
+\lhead[]{Joseph Petitti}
+\rhead[]{Homework 3}
+\chead[]{Database Systems II}
+
+\begin{document}
+
+\section*{Problem 1}
+
+\noindent After inserting 20:
+
+\begin{center}
+	\begin{tikzpicture}
+		\tikzstyle{bucket}=[rectangle, draw]
+		\tikzstyle{left}=[rectangle, rectangle split, rectangle split parts=2]
+		\tikzstyle{every node}=[bucket]
+
+		\node[left] (root) {
+			\nodepart{one} \hphantom{asdf}
+			\nodepart{two} \hphantom{asdf}
+		};
+
+		\node[bucket, label={Bucket A}, right of=root, xshift=3cm] (bucketA) {
+			4, 10, 20
+		};
+
+		\node[bucket, label={Bucket B}, below of=bucketA, yshift=-1cm] (bucketB) {
+			5, 9
+		};
+
+		\draw[->, thick, >=latex] (root.one) -- (bucketA);
+		\draw[->, thick, >=latex] (root.two) -- (bucketB);
+
+	\end{tikzpicture}
+\end{center}
+
+\noindent After inserting 33:
+
+\begin{center}
+	\begin{tikzpicture}
+		\tikzstyle{bucket}=[rectangle, draw]
+		\tikzstyle{left}=[rectangle, rectangle split, rectangle split parts=2]
+		\tikzstyle{every node}=[bucket]
+
+		\node[left] (root) {
+			\nodepart{one} \hphantom{asdf}
+			\nodepart{two} \hphantom{asdf}
+		};
+
+		\node[bucket, label={Bucket A}, right of=root, xshift=3cm] (bucketA) {
+			4, 10, 20
+		};
+
+		\node[bucket, label={Bucket B}, below of=bucketA, yshift=-1cm] (bucketB) {
+			5, 9, 33
+		};
+
+		\draw[->, thick, >=latex] (root.one) -- (bucketA);
+		\draw[->, thick, >=latex] (root.two) -- (bucketB);
+
+	\end{tikzpicture}
+\end{center}
+
+\noindent After inserting 13:
+
+\begin{center}
+	\begin{tikzpicture}
+		\tikzstyle{bucket}=[rectangle, draw]
+		\tikzstyle{left}=[rectangle, rectangle split, rectangle split parts=2]
+		\tikzstyle{every node}=[bucket]
+
+		\node[left] (root) {
+			\nodepart{one} \hphantom{asdf}
+			\nodepart{two} \hphantom{asdf}
+		};
+
+		\node[bucket, label={Bucket A}, right of=root, xshift=3cm] (bucketA) {
+			4, 10, 20
+		};
+
+		\node[bucket, label={Bucket B}, below of=bucketA, yshift=-1cm] (bucketB) {
+			5, 9, 33
+		};
+
+		\node[bucket, label={Bucket B Overflow}, right of=bucketB, xshift=3cm]
+		(bucketBOverflow) {
+			13
+		};
+
+		\draw[->, thick, >=latex] (root.one) -- (bucketA);
+		\draw[->, thick, >=latex] (root.two) -- (bucketB);
+		\draw[->, thick, >=latex] (bucketB) -- (bucketBOverflow);
+
+	\end{tikzpicture}
+\end{center}
+
+\noindent After inserting 14:
+
+\begin{center}
+	\begin{tikzpicture}
+		\tikzstyle{bucket}=[rectangle, draw]
+		\tikzstyle{left}=[rectangle, rectangle split, rectangle split parts=2]
+		\tikzstyle{every node}=[bucket]
+
+		\node[left] (root) {
+			\nodepart{one} \hphantom{asdf}
+			\nodepart{two} \hphantom{asdf}
+		};
+
+		\node[bucket, label={Bucket A}, right of=root, xshift=3cm] (bucketA) {
+			4, 10, 20
+		};
+
+		\node[bucket, label={Bucket B}, below of=bucketA, yshift=-1cm] (bucketB) {
+			5, 9, 33
+		};
+
+		\node[bucket, label={Bucket A Overflow}, right of=bucketA, xshift=3cm]
+		(bucketAOverflow) {
+			14
+		};
+
+		\node[bucket, label={Bucket B Overflow}, right of=bucketB, xshift=3cm]
+		(bucketBOverflow) {
+			13
+		};
+
+		\draw[->, thick, >=latex] (root.one) -- (bucketA);
+		\draw[->, thick, >=latex] (root.two) -- (bucketB);
+		\draw[->, thick, >=latex] (bucketB) -- (bucketBOverflow);
+		\draw[->, thick, >=latex] (bucketA) -- (bucketAOverflow);
+
+	\end{tikzpicture}
+\end{center}
+
+\section*{Problem 2}
+
+\subsection*{1}
+
+\begin{enumerate}[label=(\alph*)]
+	\item Non-blocking, because it can output tuples as it processes inputs, and
+		just won't output them again if it has encountered the same tuple
+		before.
+	\item Non-blocking. If column X is sorted, once it finds a different value
+		of X it can output all tuples of the previous value because they make up
+		an entire group.
+	\item Blocking, because it needs to find all elements in a specific group
+		before it can start outputing them.
+	\item Blocking, because it needs to process all tuples in R before it can
+		output the sorted list of tuples.
+	\item Non-blocking. Since the leaves of the B-tree are already sorted it can
+		just output them in order as it reads them in.
+	\item Blocking, because it must first sort R and S, and then merge join
+		them.
+	\item Non-blocking, it can output the resulting tuples as it reads in the
+		input.
+\end{enumerate}
+
+\subsection*{2}
+
+\begin{enumerate}[label=(\alph*)]
+	\item Can be done in one pass assuming the distinct tuples of R fit in 199
+		buffers.
+	\item Can be done in one pass as long as the biggest group can fit in 199
+		buffers.
+	\item Can be done in one pass as long as R can fit in 199 buffers.
+	\item Cannot be done in one pass. A two-pass external sort reads M blocks at
+		a time, sorts them, and writes them to the disk as the first run, then
+		merges the runs to produce a sorted output. The I/O cost will be $ 2
+		\times B(R) $ for the first pass and $ B(R) $ for the second pass, for a
+		total of $ 3 B(R) = 3 \times 1000 = 3000 $ I/Os.
+	\item Can be done in one pass, with 70 I/Os to read the index, plus 2000
+		I/Os to read and write the sorted relation R, for a total of 2070 I/Os.
+	\item Cannot be done in one pass. Phase one can sort R and S, while phase
+		two merges and joins the sorted relations R and S. The I/O cost is $ 2
+		\times B(R) + 2 \times B(S) $ for phase one sorting, plus $ B(R) + B(S)
+		$ for the merge and join phase two, for a total cost of $ 3 ( B(R) +
+		B(S)) = 3 ( 1000 + 150 ) = 3450 $ I/Os.
+	\item Can be done in one pass because S can fit in 199 buffers.
+\end{enumerate}
+
+\section*{Problem 3}
+
+
+\end{document}
