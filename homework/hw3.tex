@@ -229,7 +229,23 @@
 
 	\item
 		\begin{enumerate}[label=\alph*.]
-			\item 
+			\item $ 3 (B(R1) + B(R2)) = 3 (1000 + 200) = 3600 $
+			\item $ B(R2) \leq M^2 $
+
+				$ 200 \leq M^2 $
+
+				$ M >= 14 $
+
+				Minimum number of buffers is 14
+		\end{enumerate}
+
+	\item
+		\begin{enumerate}[label=\alph*.]
+			\item Assuming R2 is clusteded, R1.a index is in memory, and the
+				index is clustered.
+
+				$ B(R2) + T(R2) \times (B(R1) / V(R1,a)) = 200 + 2000 \times (
+				1000 / 500 ) = 4200 $
 		\end{enumerate}
 \end{enumerate}
 
