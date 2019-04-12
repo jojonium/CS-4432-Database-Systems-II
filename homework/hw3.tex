@@ -222,9 +222,9 @@
 
 				$ 1000 + 200 \leq M^2 $
 
-				$ M >= 34 $
+				$ M >= 35 $
 
-				Minimum number of buffers necessary is 34	
+				Minimum number of buffers necessary is 35	
 		\end{enumerate}
 
 	\item
@@ -234,18 +234,19 @@
 
 				$ 200 \leq M^2 $
 
-				$ M >= 14 $
+				$ M >= 15 $
 
-				Minimum number of buffers is 14
+				Minimum number of buffers is 15
 		\end{enumerate}
 
 	\item
 		\begin{enumerate}[label=\alph*.]
-			\item Assuming R2 is clusteded, R1.a index is in memory, and the
-				index is clustered.
+			\item Outer relation cost = 2000
 
-				$ B(R2) + T(R2) \times (B(R1) / V(R1,a)) = 200 + 2000 \times (
-				1000 / 500 ) = 4200 $
+				Assuming the index is already in memory, we get 5 tuples in R1
+				per tuple in R2, so $ 5 \times 2000 = 10000 $
+
+				Total = 2000 + 10000 = 12000
 		\end{enumerate}
 \end{enumerate}
 
