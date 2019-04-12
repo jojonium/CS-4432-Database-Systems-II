@@ -205,6 +205,32 @@
 
 \section*{Problem 4}
 
+\begin{enumerate}
+	\item
+		\begin{enumerate}[label=\alph*.]
+			\item R2, because it's smaller
+			\item $ B(R2) + \frac{B(R2)}{M - 1} \times B(R1) = 200 +
+				\frac{200}{51} \times 1000 = 4122 $ IOs
+			\item $ B(R1) + \frac{B(R1)}{M - 1} \times B(R2) = 1000 +
+				\frac{1000}{51} \times 200 = 4922 $ IOs
+		\end{enumerate}
 
+	\item
+		\begin{enumerate}[label=\alph*.]
+			\item $ 3 (B(R1) + B(R2)) = 3 (1000 + 200) = 3600 $
+			\item $ B(R1) + B(R2) \leq M^2 $
+
+				$ 1000 + 200 \leq M^2 $
+
+				$ M >= 34 $
+
+				Minimum number of buffers necessary is 34	
+		\end{enumerate}
+
+	\item
+		\begin{enumerate}[label=\alph*.]
+			\item 
+		\end{enumerate}
+\end{enumerate}
 
 \end{document}
