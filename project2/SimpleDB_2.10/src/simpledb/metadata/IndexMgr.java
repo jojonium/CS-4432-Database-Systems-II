@@ -31,24 +31,32 @@ public class IndexMgr {
       ti = tblmgr.getTableInfo("idxcat", tx);
    }
    
+   /** CS4432-Project2
+    * added a setString for idxtype
+    */
    /**
     * Creates an index of the specified type for the specified field.
     * A unique ID is assigned to this index, and its information
     * is stored in the idxcat table.
+    * @param idxtype the type of the index - CS4432-Project2
     * @param idxname the name of the index
     * @param tblname the name of the indexed table
     * @param fldname the name of the indexed field
     * @param tx the calling transaction
     */
-   public void createIndex(String idxname, String tblname, String fldname, Transaction tx) {
+   public void createIndex(String idxtype, String idxname, String tblname, String fldname, Transaction tx) {
       RecordFile rf = new RecordFile(ti, tx);
       rf.insert();
+      rf.setString("indextype",  idxtype);
       rf.setString("indexname", idxname);
       rf.setString("tablename", tblname);
       rf.setString("fieldname", fldname);
       rf.close();
    }
    
+   /** CS4432-Project2
+    * get indextype and pass it along to IndexInfo constructor
+    */
    /**
     * Returns a map containing the index info for all indexes
     * on the specified table.
@@ -59,12 +67,14 @@ public class IndexMgr {
    public Map<String,IndexInfo> getIndexInfo(String tblname, Transaction tx) {
       Map<String,IndexInfo> result = new HashMap<String,IndexInfo>();
       RecordFile rf = new RecordFile(ti, tx);
-      while (rf.next())
+      while (rf.next()) {
          if (rf.getString("tablename").equals(tblname)) {
-         String idxname = rf.getString("indexname");
-         String fldname = rf.getString("fieldname");
-         IndexInfo ii = new IndexInfo(idxname, tblname, fldname, tx);
-         result.put(fldname, ii);
+            String idxtype = rf.getString("indextype");
+            String idxname = rf.getString("indexname");
+            String fldname = rf.getString("fieldname");
+            IndexInfo ii = new IndexInfo(idxtype, idxname, tblname, fldname, tx);
+            result.put(fldname, ii);
+         }
       }
       rf.close();
       return result;

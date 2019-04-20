@@ -33,8 +33,18 @@ public class MetadataMgr {
       return viewmgr.getViewDef(viewname, tx);
    }
    
+   /** CS4432-Project2
+    * Overloaded createIndex to take and pass along idxtype
+    */
+   public void createIndex(String idxtype, String idxname, String tblname, String fldname, Transaction tx) {
+      idxmgr.createIndex(idxtype, idxname, tblname, fldname, tx);
+   }
+   
+   /** CS4432-Project2
+    * Leaving original for compatibility purposes, default to "sh" (for static hash)
+    */
    public void createIndex(String idxname, String tblname, String fldname, Transaction tx) {
-      idxmgr.createIndex(idxname, tblname, fldname, tx);
+      idxmgr.createIndex("sh", idxname, tblname, fldname, tx);
    }
    
    public Map<String,IndexInfo> getIndexInfo(String tblname, Transaction tx) {
