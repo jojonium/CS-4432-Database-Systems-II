@@ -103,10 +103,11 @@ it has all its locks.
 
 \begin{enumerate}[label=(\alph*)]
 	\item Undo \texttt{<$T$, A, 10>} by writing 10 into A on the disk, then
-		write \texttt{<Abort $T$>} to the log.
-	\item Write 40 to D on the disk, write 30 to C, write 20 to B, write
-		\texttt{<Abort $U$>} to the log, write 10 to A, and finally write
-		\texttt{<Abort $T$>} to the log.
+		write \texttt{<Abort $U$>} to the log, then write \texttt{<Abort $T$>}
+		to the log.
+	\item Assuming \texttt{<Commit $U$>} in the log means $U$ has already been
+		committed and written to disk. Write 30 to C, write 10 to A, then write
+		\texttt{<Abort $T$>} to the log. 
 	\item Write 50 to E on the disk, write 30 to C, write 10 to A, and write
 		\texttt{<Abort $T$>} to the log.
 	\item Do nothing, since there are no un-committed transactions.
