@@ -79,4 +79,30 @@
 		\end{enumerate}
 \end{enumerate}
 
+\section*{Problem 2}
+
+\begin{enumerate}[label=Q\arabic*:]
+	\item $S_1$ is not a valid schedule, because in the fifth action $T_2$ tries
+		to lock object B while $T_1$ already has a lock on it.
+
+		$S_2$ is not a valid schedule, because in the fifth action $T_1$ tries
+		to unlock object B, when it does not own a lock for object B.
+	\item $T_1$ in $S_1$ is well-formed, because all of its read/write actions
+		are performed after locking the object and before unlocking the object.
+
+		$T_1$ in $S_2$ is not well-formed, bceause in the third action it tries
+		to write to object B before it has a lock on that object.
+\end{enumerate}
+
+\section*{Problem 3}
+
+This sequence follows 2PL, because neither transaction performs an unlock before
+it has all its locks.
+
+\section*{Problem 4}
+
+\begin{enumerate}[label=(\alph*)]
+	\item Undo \texttt{<T, A, 10>} by setting A to 10.
+\end{enumerate}
+
 \end{document}
