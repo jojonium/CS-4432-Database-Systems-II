@@ -1,7 +1,6 @@
 package simpledb.index.extensiblehash;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import simpledb.index.Index;
 import simpledb.query.Constant;
@@ -44,17 +43,21 @@ public class ExtensibleHashIndex implements Index {
 		this.idxname = idxname;
 		this.sch = sch;
 		this.tx = tx;
+		this.globalSchema = new Schema();
 		this.globalSchema.addIntField("bits");
 		this.globalSchema.addStringField("filename", 32);
 		this.globalSchema.addIntField("localdepth");
 		TableScan tempTableScan = new TableScan(new TableInfo(GLOBAL_TABLE, globalSchema), tx);
-		// make the buckets
-		for (int i = 0; i < NUM_BUCKETS; ++i) {
+		// if there aren't any buckets in the directory yet, make one
+		if (!tempTableScan.next()) {
 			tempTableScan.insert();
-			tempTableScan.setInt("bits", i);
-			tempTableScan.setString("filename", idxname + i);
+			tempTableScan.setInt("bits", 0);
+			tempTableScan.setString("filename", this.idxname + 0);
 			tempTableScan.setInt("localdepth", 1);
 			tempTableScan.insert();
+			tempTableScan.setInt("bits", 1);
+			tempTableScan.setString("filename", this.idxname + 1);
+			tempTableScan.setInt("localdepth", 1);
 		}
 	}
 	
@@ -67,12 +70,17 @@ public class ExtensibleHashIndex implements Index {
 	public void beforeFirst(Constant searchkey) {
 		close();
 		this.searchkey = searchkey;
-		int bucket = searchkey.hashCode() % (int)Math.pow(2, globalDepth);
 		// make global table
 		TableInfo globalTableInfo = new TableInfo(GLOBAL_TABLE, globalSchema);
 		// make global table scan
 		TableScan globalTableScan = new TableScan(globalTableInfo, tx);
+		// find the global depth of the directory
+		int globalSize = 0;
+		while (globalTableScan.next()) globalSize++;
+		globalDepth = (int)(Math.log(globalSize) / Math.log(2));
+		int bucket = searchkey.hashCode() % (int)Math.pow(2, globalDepth); // mask the last globalDepth bits
 		// find bit string and get the file name and local depth
+		globalTableScan.beforeFirst();
 		while (globalTableScan.next()) {
 			if (globalTableScan.getInt("bits") == bucket) {
 				this.localDepth = globalTableScan.getInt("localdepth");
@@ -80,6 +88,8 @@ public class ExtensibleHashIndex implements Index {
 				break;
 			}
 		}
+		globalTableScan.close();
+		
 		TableInfo ti = new TableInfo(bucketFilename, sch);
 		ts = new TableScan(ti, tx);
 	}
@@ -120,21 +130,31 @@ public class ExtensibleHashIndex implements Index {
 	public void insert(Constant dataval, RID datarid) {
 		// TODO check if bucket is full, and split if necessary
 		
-		// find the length of the table
+		// find the number of records
 		int size = 0;
 		while (ts.next()) ++size;
 		
+		// if full we have to split
 		while (size >= MAX_BUCKET_CAPACITY) {
 			TableInfo tempTI = new TableInfo(GLOBAL_TABLE, globalSchema);
 			TableScan tempTS = new TableScan(tempTI, tx);
 			
+			int globalSize = 0;
+			while (tempTS.next()) globalSize++;
+			
+			globalDepth = (int)(Math.log(globalSize) / Math.log(2));
+			
 			if (localDepth == globalDepth) {
-				// read the global file, delete all the records and re-insert with longer bit string
+				// we need to double the size of the directory
 				globalDepth++;
 				ArrayList<Bucket> tempAL = new ArrayList<Bucket>();
+				
+				// temporarily store old directory buckets
+				tempTS.beforeFirst();
 				while (tempTS.next()) {
 					tempAL.add(new Bucket(tempTS.getInt("bits") + (int)Math.pow(2, globalDepth - 1), tempTS.getString("filename"), tempTS.getInt("localdepth")));
 				}
+				// create new buckets
 				for (Bucket b : tempAL) {
 					tempTS.insert();
 					tempTS.setInt("bits",  b.getBits());
@@ -146,10 +166,10 @@ public class ExtensibleHashIndex implements Index {
 			localDepth++;
 			
 			// split the bucket
-			String bucket1Name = bucketFilename;
+			String bucket1Name = bucketFilename; // MSB should be 0
 			TableScan ts1 = new TableScan(new TableInfo(bucket1Name, sch), tx);
 			int bucket2Bits = (searchkey.hashCode() % (int) Math.pow(2, localDepth - 1)) + (int)Math.pow(2, localDepth - 1);
-			String bucket2Name = idxname + bucket2Bits;
+			String bucket2Name = idxname + bucket2Bits; // MSB should be 1
 			TableScan ts2 = new TableScan(new TableInfo(bucket2Name, sch), tx);
 			while (ts1.next()) {
 				if (ts1.getVal("dataval").hashCode() % (int)Math.pow(2,  localDepth) == bucket2Bits) {
@@ -161,6 +181,8 @@ public class ExtensibleHashIndex implements Index {
 					ts1.delete();
 				}
 			}
+			ts1.close();
+			ts2.close();
 			
 			// change filenames in global table
 			tempTS.beforeFirst();
@@ -168,6 +190,7 @@ public class ExtensibleHashIndex implements Index {
 			while (tempTS.next()) {
 				int bucket = tempTS.getInt("bits");
 				if (bucket % temp == searchkey.hashCode() % temp) {
+					tempTS.setInt("localDepth", localDepth);
 					if (bucket / temp >= 1) {
 						tempTS.setString("filename", bucket2Name);
 					} else {
@@ -175,6 +198,7 @@ public class ExtensibleHashIndex implements Index {
 					}
 				}
 			}
+			tempTS.close();
 			
 			// set ts to new bucket
 			beforeFirst(dataval);
@@ -184,6 +208,7 @@ public class ExtensibleHashIndex implements Index {
 			while (ts.next()) size++;
 		}
 		
+		// insert new index record
 		ts.insert();
 		ts.setInt("block", datarid.blockNumber());
 		ts.setInt("id", datarid.id());
@@ -228,6 +253,28 @@ public class ExtensibleHashIndex implements Index {
 	 */
 	public static int searchCost(int numblocks, int rpb){
 		return numblocks / NUM_BUCKETS;
+	}
+	
+	/** CS4432-Project2
+	 * creates a string with the relevant details of this extensible hash index
+	 * for debugging and testing purposes
+	 * @return a string representing this object
+	 */
+	@Override
+	public String toString() {
+		String out = "\n=======================\n";
+		TableScan tempTS = new TableScan(new TableInfo(GLOBAL_TABLE, globalSchema), tx);
+		while (tempTS.next()) {
+			out += "bits: " + Integer.toBinaryString(tempTS.getInt("bits"));
+			TableScan innerTS = new TableScan(new TableInfo(tempTS.getString("filename"), sch), tx);
+			while (innerTS.next()) {
+				out += "\n\t data hashcode: " + innerTS.getVal("dataval").hashCode() + 
+						"\t binary data hashcode: " + Integer.toBinaryString(innerTS.getVal("dataval").hashCode());
+			}
+			innerTS.close();
+		}
+		tempTS.close();
+		return out;
 	}
 }
 

@@ -23,6 +23,7 @@ public class IndexMgr {
    public IndexMgr(boolean isnew, TableMgr tblmgr, Transaction tx) {
       if (isnew) {
          Schema sch = new Schema();
+         sch.addStringField("indextype", MAX_NAME); // CS4432-Project2 added index type
          sch.addStringField("indexname", MAX_NAME);
          sch.addStringField("tablename", MAX_NAME);
          sch.addStringField("fieldname", MAX_NAME);
