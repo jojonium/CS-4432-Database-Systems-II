@@ -25,4 +25,4 @@ To test our implementation of the extensible hash, we tested both on the createS
 in the SimpleDB distribution, and also created our own files. The testing output can be found in the file named 
 "Extensible_hash_testing_scenario", and be produced by running CreateTestTablesOnline.java (after running Startup).
 
-We test the create eh index sql, in addition 
+We also do the timing experiment in the CreateTestTablesOnline2.java file.
