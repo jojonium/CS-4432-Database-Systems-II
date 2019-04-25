@@ -21,7 +21,7 @@ import simpledb.tx.Transaction;
  */
 public class ExtensibleHashIndex implements Index {
 	private static int NUM_BUCKETS = 2;          // # buckets per directory
-	private static int MAX_BUCKET_CAPACITY = 5; // maximum number of records per bucket
+	private static int MAX_BUCKET_CAPACITY = 2; // maximum number of records per bucket
 	private int globalDepth = 1;         // global directory depth
 	private static String GLOBAL_TABLE = "globalTable";
 	private String idxname;
@@ -129,7 +129,6 @@ public class ExtensibleHashIndex implements Index {
 	 */
 	public void insert(Constant dataval, RID datarid) {
 		// TODO check if bucket is full, and split if necessary
-		System.out.println(toString());
 		this.beforeFirst(dataval);
 		// find the number of records
 		
@@ -215,10 +214,12 @@ public class ExtensibleHashIndex implements Index {
 		
 		// insert new index record
 		ts.insert();
-		System.out.println("Inserting " + dataval + " into bucket " + bucketFilename);
 		ts.setInt("block", datarid.blockNumber());
 		ts.setInt("id", datarid.id());
 		ts.setVal("dataval", dataval);
+		
+		System.out.println("Inserting " + dataval + " into bucket " + bucketFilename);
+		System.out.println(toString());
 	}
 	
 	/** CS4432-Project2
@@ -279,7 +280,7 @@ public class ExtensibleHashIndex implements Index {
 			
 			// Each tempTS next is a new bucket, each with a b
 			out += "\n" + bucketHash + " " + bucketFile;
-			TableScan innerTS = new TableScan(new TableInfo(bucketFilename, sch), tx);
+			TableScan innerTS = new TableScan(new TableInfo(bucketFile, sch), tx);
 			while (innerTS.next()) {
 				out += "\n\t data: " + innerTS.getVal("dataval").hashCode() + 
 						"\t binary data hashcode: " + Integer.toBinaryString(innerTS.getVal("dataval").hashCode());
