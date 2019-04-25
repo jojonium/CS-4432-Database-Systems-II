@@ -34,7 +34,7 @@ public class CreateTestTablesOnline2 {
  }
  
  public static void selectionConstantPredicate(String tableName, Statement s) throws SQLException {
-	 String query = "select a1, a2 from " + tableName + " where a1 = 985";
+	 String query = "select a1, a2 from " + tableName + " where a1 = 891";
 	 long time = timeIt(query, s, true);
 	 System.out.println("Query: [" + query + "]: Execution time: " + time + "ms\n");
  }
@@ -126,8 +126,6 @@ public class CreateTestTablesOnline2 {
    System.out.println("Selection on constant predicate:");
    System.out.println("================================");
    
-   //update("insert into test2 (a1,a2) values(999,999)", s);
-   //timeIt("select a1, a2 from test2 where a1 = 676", s);
    
    selectionConstantPredicate("test1", s);
    selectionConstantPredicate("test2", s);
@@ -135,7 +133,7 @@ public class CreateTestTablesOnline2 {
    selectionConstantPredicate("test4", s);
    
    //selectionJoin("test1", "test5", s);
-   selectionJoin("test2", "test5", s);
+   //selectionJoin("test2", "test5", s);
    //selectionJoin("test3", "test5", s);
    //selectionJoin("test4", "test5", s);
    
