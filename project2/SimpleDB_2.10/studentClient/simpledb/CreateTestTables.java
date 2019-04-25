@@ -10,7 +10,7 @@ import simpledb.remote.SimpleDriver;
 import simpledb.server.SimpleDB;
 import simpledb.tx.Transaction;
 public class CreateTestTables {
- final static int maxSize=1000;
+ final static int maxSize=2000;
  /**
   * @param args
   */
@@ -107,6 +107,8 @@ public class CreateTestTables {
      }
     }
    }
+   
+   System.out.println("Done!");
    
    
  }

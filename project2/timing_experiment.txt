@@ -1,0 +1,26 @@
+Timing Experiment
+Griffin Bishop, Joseph Petitti
+
+================================
+Selection on constant predicate:
+================================
+Query: [select a1, a2 from test1 where a1 = 891]: Execution time: 14ms
+
+Query: [select a1, a2 from test2 where a1 = 891]: Execution time: 3ms
+
+Query: [select a1, a2 from test3 where a1 = 891]: Execution time: 4ms
+
+
+Query: [select a1, a2 from test4 where a1 = 891]: Execution time: 2ms
+
+================================
+Join on a1 = a1 between all tables and the table with no index:
+================================
+
+Query: [select a1, a2 from test1, test5 where a1 = test5.a1]: Execution time: 327ms
+
+Query: [select a1, a2 from test2, test5 where a1 = test5.a1]: Execution time: 344ms
+
+Query: [select a1, a2 from test3, test5 where a1 = test5.a1]: Execution time: 281ms
+
+Query: [select a1, a2 from test4, test5 where a1 = test5.a1]: Execution time: 364ms

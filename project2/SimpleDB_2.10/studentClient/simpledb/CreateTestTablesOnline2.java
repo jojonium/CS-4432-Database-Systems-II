@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.Random;
 import simpledb.remote.SimpleDriver;
 public class CreateTestTablesOnline2 {
- final static int maxSize=100000;
+ final static int maxSize=1000000;
  
  public static long timeIt(String qry, Statement s, boolean output) throws SQLException {
 	 final long start = System.currentTimeMillis();
