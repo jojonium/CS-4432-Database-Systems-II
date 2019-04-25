@@ -55,7 +55,7 @@ public class Testing {
 			Transaction tx = new Transaction();
 
 			// analogous to the statement
-			String qry = "select a1, a2" + "from test1, test2"; // " + "where MajorId = DId";
+			String qry = "select a1, a2" + "from test2"; // " + "where MajorId = DId";
 			Plan p = SimpleDB.planner().createQueryPlan(qry, tx);
 
 			// analogous to the result set

@@ -86,7 +86,7 @@ public class CreateTestTables {
    executeUpdate("create bt index idx3 on test3 (a1)");
    
    rand=new Random(1);
-   for(int i=0;i<40;i++) {
+   for(int i=0;i<11;i++) {
 	   executeUpdate("insert into test2 (a1,a2) values("+rand.nextInt(1000)+","+rand.nextInt(1000)+ ")");
    }
    

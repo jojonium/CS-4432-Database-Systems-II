@@ -129,10 +129,9 @@ public class ExtensibleHashIndex implements Index {
 	 */
 	public void insert(Constant dataval, RID datarid) {
 		// TODO check if bucket is full, and split if necessary
+		System.out.println(toString());
 		this.beforeFirst(dataval);
 		// find the number of records
-		//System.out.println(toString());
-		System.out.println(toString());
 		
 		int size = 0;
 		while (ts.next()) ++size;
