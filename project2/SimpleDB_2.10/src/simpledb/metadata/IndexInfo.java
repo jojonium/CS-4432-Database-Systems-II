@@ -62,7 +62,7 @@ public class IndexInfo {
 	      } else if (idxtype.equals("eh")) {
 	    	  return new ExtensibleHashIndex(idxname, sch, tx);
 	      } else {
-	    	  throw new Exception("Invalid index type");
+	    	  throw new Exception("Invalid index type: " + idxtype);
 	      }
       } catch (Exception e) {
     	  System.out.println(e);

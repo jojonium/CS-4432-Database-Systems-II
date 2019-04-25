@@ -236,7 +236,7 @@ public class Parser {
     * CreateIndexData constructor
     */
    public CreateIndexData createIndex() {
-      lex.eatKeyword("create");
+      //lex.eatKeyword("create"); 	// Remove because we already ate "create" in the calling context
 	  String idxtype = lex.eatId(); 
       lex.eatKeyword("index");
       String idxname = lex.eatId();
