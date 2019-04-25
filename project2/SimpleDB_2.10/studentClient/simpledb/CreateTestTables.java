@@ -10,7 +10,7 @@ import simpledb.remote.SimpleDriver;
 import simpledb.server.SimpleDB;
 import simpledb.tx.Transaction;
 public class CreateTestTables {
- final static int maxSize=100;
+ final static int maxSize=2000;
  /**
   * @param args
   */
@@ -85,13 +85,8 @@ public class CreateTestTables {
    executeUpdate("create eh index idx2 on test2 (a1)");
    executeUpdate("create bt index idx3 on test3 (a1)");
    
-   rand=new Random(1);
-   for(int i=0;i<11;i++) {
-	   executeUpdate("insert into test2 (a1,a2) values("+rand.nextInt(1000)+","+rand.nextInt(1000)+ ")");
-   }
    
    
-   /*
    for(int i=1;i<6;i++)
    {
     if(i!=5)
@@ -100,6 +95,7 @@ public class CreateTestTables {
      System.out.println("Starting new table test"+i);
      for(int j=0;j<maxSize;j++)
      {
+      if (j % 50 == 0) { System.out.println(j); }
       executeUpdate("insert into test"+i+" (a1,a2) values("+rand.nextInt(1000)+","+rand.nextInt(1000)+ ")");
      }
     }
@@ -111,6 +107,9 @@ public class CreateTestTables {
      }
     }
    }
-   */
+   
+   System.out.println("Done!");
+   
+   
  }
 }

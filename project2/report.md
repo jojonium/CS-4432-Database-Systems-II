@@ -18,17 +18,11 @@ objects, stored in their own files. The Extensible Hash Index class implements
 Index, and all of its methods were originally based off of the existing Hash
 Index class. insert() and beforeFirst() were modified the most from HashIndex.
 The specifics of the ExtensibleHashIndex were based on the [Wikipedia's
-article](https://en.wikipedia.org/wiki/Extendible_hashing). To insert a new
-record, the key column is hashed to find the appropriate bucket. If that bucket
-is full, it is split evenly into two separate buckets, and the directory
-pointers are updated. If the directory depth is the same as the local depth of
-the buckets, the directory also needs to be split. It is doubled in size, with
-duplicate values pointing to each bucket. This way, if new buckets are added in
-the future there will be room for them in the directory.
+article](https://en.wikipedia.org/wiki/Extendible_hashing).
 
 ## Extensible Hash Index Testing
 To test our implementation of the extensible hash, we tested both on the createStudentDB files contained
 in the SimpleDB distribution, and also created our own files. The testing output can be found in the file named 
 "Extensible_hash_testing_scenario", and be produced by running CreateTestTablesOnline.java (after running Startup).
 
-We test the create eh index sql, in addition 
+We also do the timing experiment in the CreateTestTablesOnline2.java file.

@@ -1,0 +1,4 @@
+CS4432 - Project 2
+Griffin Bishop, Joseph Petitti
+
+To our knowledge, all parts of this project are working properly and without bugs.
