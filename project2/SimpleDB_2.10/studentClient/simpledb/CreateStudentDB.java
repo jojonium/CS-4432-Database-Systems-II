@@ -13,6 +13,9 @@ public class CreateStudentDB {
 			stmt.executeUpdate(s);
 			System.out.println("Table STUDENT created.");
 
+			
+			stmt.executeUpdate("create eh index studentSIdIndex on STUDENT (SId)");
+			
 			s = "insert into STUDENT(SId, SName, MajorId, GradYear) values ";
 			String[] studvals = {"(1, 'joe', 10, 2004)",
 								 "(2, 'amy', 20, 2004)",

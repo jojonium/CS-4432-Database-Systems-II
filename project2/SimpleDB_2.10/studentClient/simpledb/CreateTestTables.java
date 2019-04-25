@@ -47,17 +47,11 @@ public class CreateTestTables {
 		}
 	}
  
+	
  
  public static void main(String[] args) {
 	 
   SimpleDB.init("cs4432DB");
-  // TODO Auto-generated method stub
-  /*
-  Connection conn=null;
-  Driver d = new SimpleDriver();
-  String host = "localhost"; //you may change it if your SimpleDB server is running on a different machine
-  String url = "jdbc:simpledb://" + host;
-  */
   
   
   
@@ -66,10 +60,6 @@ public class CreateTestTables {
   "  a2 int"+
   ")";
   Random rand=null;
-  Statement s=null;
-  //try {
-   //conn = d.connect(url, null);
-   //s=conn.createStatement();
    executeUpdate("Create table test1" +
      "( a1 int," +
      "  a2 int"+
@@ -96,16 +86,14 @@ public class CreateTestTables {
    executeUpdate("create bt index idx3 on test3 (a1)");
    
    
-   
-   
    for(int i=1;i<6;i++)
    {
     if(i!=5)
     {
      rand=new Random(1);// ensure every table gets the same data
+     System.out.println("Starting new table test"+i);
      for(int j=0;j<maxSize;j++)
      {
-     
       executeUpdate("insert into test"+i+" (a1,a2) values("+rand.nextInt(1000)+","+rand.nextInt(1000)+ ")");
      }
     }
@@ -117,21 +105,5 @@ public class CreateTestTables {
      }
     }
    }
-   //conn.close();
-   
-   
-
-  //} catch (SQLException e) {
-   // TODO Auto-generated catch block
-  // e.printStackTrace();
-  //}finally
-  //{
-  // try {
-    //conn.close();
-  // } catch (SQLException e) {
-    // TODO Auto-generated catch block
-  //  e.printStackTrace();
-  // }
-  //}
  }
 }
