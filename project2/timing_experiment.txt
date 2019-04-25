@@ -24,3 +24,20 @@ Query: [select a1, a2 from test2, test5 where a1 = test5.a1]: Execution time: 34
 Query: [select a1, a2 from test3, test5 where a1 = test5.a1]: Execution time: 281ms
 
 Query: [select a1, a2 from test4, test5 where a1 = test5.a1]: Execution time: 364ms
+
+
+
+Note: test1 has a static hash index, test2 has the extensible hash index, and test3 has the b-tree index.
+test4 has no index, and test 5 has no index and half the records
+
+Analysis
+
+For the selection on the constant predicate, these results were not exactly what I was expecting.  The extensible hash, the b-tree and no index were all pretty close to each other, with the static hash the slowest. I was expecting the queries on 
+tables with the indices to perform the best. However, this data may not be the most useful, as my computer has no spinning disk
+hard drive and instead has a 550 MB/s solid state drive, which could definitely impact this timing.
+
+The join queries were more in line with my expectations. I expected that the table without any indices would be the slowest,
+and this is what happened.
+
+
+
