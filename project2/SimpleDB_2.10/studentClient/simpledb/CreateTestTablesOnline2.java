@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.Random;
 import simpledb.remote.SimpleDriver;
 public class CreateTestTablesOnline2 {
- final static int maxSize=100;
+ final static int maxSize=100000;
  
  public static long timeIt(String qry, Statement s, boolean output) throws SQLException {
 	 final long start = System.currentTimeMillis();
@@ -35,7 +35,7 @@ public class CreateTestTablesOnline2 {
  
  public static void selectionConstantPredicate(String tableName, Statement s) throws SQLException {
 	 String query = "select a1, a2 from " + tableName + " where a1 = 891";
-	 long time = timeIt(query, s, true);
+	 long time = timeIt(query, s, false);
 	 System.out.println("Query: [" + query + "]: Execution time: " + time + "ms\n");
  }
  
@@ -43,7 +43,7 @@ public class CreateTestTablesOnline2 {
 	 String query = "select a1, a2 from " + table1 + ", " + table2 + 
 			 " where a1 = " + table2 + ".a1";
 	 System.out.println(query);
-	 long time = timeIt(query, s, true);
+	 long time = timeIt(query, s, false);
 	 System.out.println("Query: [" + query + "]: Execution time: " + time + "ms\n");
  }
  
@@ -132,10 +132,14 @@ public class CreateTestTablesOnline2 {
    selectionConstantPredicate("test3", s);
    selectionConstantPredicate("test4", s);
    
-   //selectionJoin("test1", "test5", s);
-   //selectionJoin("test2", "test5", s);
-   //selectionJoin("test3", "test5", s);
-   //selectionJoin("test4", "test5", s);
+   System.out.println("================================");
+   System.out.println("Join on a1 = a1 between all tables and the table with no index:");
+   System.out.println("================================");
+   
+   selectionJoin("test1", "test5", s);
+   selectionJoin("test2", "test5", s);
+   selectionJoin("test3", "test5", s);
+   selectionJoin("test4", "test5", s);
    
    
    

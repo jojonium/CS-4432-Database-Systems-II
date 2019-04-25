@@ -21,7 +21,7 @@ import simpledb.tx.Transaction;
  */
 public class ExtensibleHashIndex implements Index {
 	private static int NUM_BUCKETS = 2;          // # buckets per directory
-	private static int MAX_BUCKET_CAPACITY = 2; // maximum number of records per bucket
+	private static int MAX_BUCKET_CAPACITY = 1000; // maximum number of records per bucket
 	private int globalDepth = 1;         // global directory depth
 	private static String GLOBAL_TABLE = "globalTable";
 	private String idxname;
