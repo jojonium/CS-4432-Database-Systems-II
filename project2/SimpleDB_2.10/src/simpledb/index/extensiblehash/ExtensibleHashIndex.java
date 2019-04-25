@@ -68,9 +68,6 @@ public class ExtensibleHashIndex implements Index {
 	 * @param searchkey the search key value.
 	 */
 	public void beforeFirst(Constant searchkey) {
-		System.out.println("Reached beforeFirst");
-		
-		
 		close();
 		this.searchkey = searchkey;
 		// make global table
@@ -134,8 +131,8 @@ public class ExtensibleHashIndex implements Index {
 		// TODO check if bucket is full, and split if necessary
 		this.beforeFirst(dataval);
 		// find the number of records
-		System.out.println("Extensible hash index state: \n " + toString());
-		
+		//System.out.println(toString());
+		System.out.println(toString());
 		
 		int size = 0;
 		while (ts.next()) ++size;
@@ -151,7 +148,7 @@ public class ExtensibleHashIndex implements Index {
 			globalDepth = (int)(Math.log(globalSize) / Math.log(2));
 			
 			if (localDepth == globalDepth) {
-				System.out.println("Increasing Global Depth from " + globalDepth + " to " + globalDepth+1);
+				System.out.println("Increasing Global Depth from " + globalDepth + " to " + (globalDepth+1));
 				// we need to double the size of the directory
 				globalDepth++;
 				ArrayList<Bucket> tempAL = new ArrayList<Bucket>();
@@ -174,7 +171,7 @@ public class ExtensibleHashIndex implements Index {
 			
 			// split the bucket
 			String bucket1Name = bucketFilename; // MSB should be 0
-			System.out.println("Splitting bucket" + bucket1Name);
+			System.out.println("Splitting bucket " + bucket1Name);
 			TableScan ts1 = new TableScan(new TableInfo(bucket1Name, sch), tx);
 			int bucket2Bits = (searchkey.hashCode() % (int) Math.pow(2, localDepth - 1)) + (int)Math.pow(2, localDepth - 1);
 			String bucket2Name = idxname + bucket2Bits; // MSB should be 1
@@ -208,6 +205,7 @@ public class ExtensibleHashIndex implements Index {
 			}
 			tempTS.close();
 			
+			
 			// set ts to new bucket
 			beforeFirst(dataval);
 			
@@ -218,7 +216,7 @@ public class ExtensibleHashIndex implements Index {
 		
 		// insert new index record
 		ts.insert();
-		System.out.println("Inserting " + dataval + " into bucket ____");
+		System.out.println("Inserting " + dataval + " into bucket " + bucketFilename);
 		ts.setInt("block", datarid.blockNumber());
 		ts.setInt("id", datarid.id());
 		ts.setVal("dataval", dataval);
@@ -273,15 +271,19 @@ public class ExtensibleHashIndex implements Index {
 	public String toString() {
 		String out = "\n=======================\n";
 		TableScan tempTS = new TableScan(new TableInfo(GLOBAL_TABLE, globalSchema), tx);
+		out += "Hashcode, Bucket filename";
 		while (tempTS.next()) {
 			
-			// Each tempTS next is a new bucket
-			out += "\nbits: " + Integer.toBinaryString(tempTS.getInt("bits"));
-			String bucketFilename = tempTS.getString("filename");
+			String bucketHash = Integer.toBinaryString(tempTS.getInt("bits"));
+			String bucketFile = tempTS.getString("filename");
+			
+			
+			// Each tempTS next is a new bucket, each with a b
+			out += "\n" + bucketHash + " " + bucketFile;
 			TableScan innerTS = new TableScan(new TableInfo(bucketFilename, sch), tx);
 			while (innerTS.next()) {
-				out += "\t data hashcode: " + innerTS.getVal("dataval").hashCode() + 
-						"\n\t binary data hashcode: " + Integer.toBinaryString(innerTS.getVal("dataval").hashCode());
+				out += "\n\t data: " + innerTS.getVal("dataval").hashCode() + 
+						"\t binary data hashcode: " + Integer.toBinaryString(innerTS.getVal("dataval").hashCode());
 			}
 			innerTS.close();
 		}
