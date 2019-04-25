@@ -1,7 +1,293 @@
 // Project 2 - Griffin Bishop, Joseph Petitti
 
-This file is to convince ourselves and the TAs that the extensible has works as intended
+This file is to convince ourselves and the TAs that the extensible has works as intended.
+
+Below is the output from CreateTestTablesOnline.java:
+It creates a table with an extensible hash index and then inserts 10 tuples of random values.
+The bucket size has been set to 2 to showcase the usage of the hash more concisely.
+Every time an insertion is attempted, we print out the state of the eh index.
+We show the hash code for which data will be put in this given bucket, the name of the bucket,
+and the number of items currently in the bucket.
+As you can see, when an an insertion is attempted on a bucket that is full (already has 2
+records), this triggers a split as expected. Note: Multiple hash codes can map to the same bucket (makes list very long at the end)
 
 
 
+creating new database
+database server ready
+Inserting 985 into bucket idx21
+
+=======================
+Hashcode, Local Depth, Bucket filename, Number of slots filled
+0 1 idx20 0
+1 1 idx21 1
+Inserting 847 into bucket idx21
+
+=======================
+Hashcode, Local Depth, Bucket filename, Number of slots filled
+0 1 idx20 0
+1 1 idx21 2
+Inserting 254 into bucket idx20
+
+=======================
+Hashcode, Local Depth, Bucket filename, Number of slots filled
+0 1 idx20 1
+1 1 idx21 2
+Inserting 434 into bucket idx20
+
+=======================
+Hashcode, Local Depth, Bucket filename, Number of slots filled
+0 1 idx20 2
+1 1 idx21 2
+Increasing Global Depth from 1 to 2
+Splitting bucket idx20
+Increasing Global Depth from 2 to 3
+Splitting bucket idx22
+Inserting 978 into bucket idx22
+
+=======================
+Hashcode, Local Depth, Bucket filename, Number of slots filled
+0 2 idx20 0
+1 1 idx21 2
+10 3 idx22 2
+11 1 idx21 2
+100 2 idx20 0
+101 1 idx21 2
+110 3 idx26 1
+111 1 idx21 2
+Splitting bucket idx21
+Inserting 569 into bucket idx21
+
+=======================
+Hashcode, Local Depth, Bucket filename, Number of slots filled
+0 2 idx20 0
+1 2 idx21 2
+10 3 idx22 2
+11 2 idx23 1
+100 2 idx20 0
+101 2 idx23 1
+110 3 idx26 1
+111 2 idx23 1
+Inserting 317 into bucket idx23
+
+=======================
+Hashcode, Local Depth, Bucket filename, Number of slots filled
+0 2 idx20 0
+1 2 idx21 2
+10 3 idx22 2
+11 2 idx23 2
+100 2 idx20 0
+101 2 idx23 2
+110 3 idx26 1
+111 2 idx23 2
+Increasing Global Depth from 3 to 4
+Splitting bucket idx22
+Increasing Global Depth from 4 to 5
+Splitting bucket idx22
+Increasing Global Depth from 5 to 6
+Splitting bucket idx218
+Inserting 562 into bucket idx250
+
+=======================
+Hashcode, Local Depth, Bucket filename, Number of slots filled
+0 2 idx20 0
+1 2 idx21 2
+10 5 idx22 0
+11 2 idx23 2
+100 2 idx20 0
+101 2 idx23 2
+110 3 idx26 1
+111 2 idx23 2
+1000 2 idx20 0
+1001 2 idx21 2
+1010 4 idx210 0
+1011 2 idx23 2
+1100 2 idx20 0
+1101 2 idx23 2
+1110 3 idx26 1
+1111 2 idx23 2
+10000 2 idx20 0
+10001 2 idx21 2
+10010 6 idx218 1
+10011 2 idx23 2
+10100 2 idx20 0
+10101 2 idx23 2
+10110 3 idx26 1
+10111 2 idx23 2
+11000 2 idx20 0
+11001 2 idx21 2
+11010 4 idx210 0
+11011 2 idx23 2
+11100 2 idx20 0
+11101 2 idx23 2
+11110 3 idx26 1
+11111 2 idx23 2
+100000 2 idx20 0
+100001 2 idx21 2
+100010 5 idx22 0
+100011 2 idx23 2
+100100 2 idx20 0
+100101 2 idx23 2
+100110 3 idx26 1
+100111 2 idx23 2
+101000 2 idx20 0
+101001 2 idx21 2
+101010 4 idx210 0
+101011 2 idx23 2
+101100 2 idx20 0
+101101 2 idx23 2
+101110 3 idx26 1
+101111 2 idx23 2
+110000 2 idx20 0
+110001 2 idx21 2
+110010 6 idx250 2
+110011 2 idx23 2
+110100 2 idx20 0
+110101 2 idx23 2
+110110 3 idx26 1
+110111 2 idx23 2
+111000 2 idx20 0
+111001 2 idx21 2
+111010 4 idx210 0
+111011 2 idx23 2
+111100 2 idx20 0
+111101 2 idx23 2
+111110 3 idx26 1
+111111 2 idx23 2
+Inserting 592 into bucket idx20
+
+=======================
+Hashcode, Local Depth, Bucket filename, Number of slots filled
+0 2 idx20 1
+1 2 idx21 2
+10 5 idx22 0
+11 2 idx23 2
+100 2 idx20 1
+101 2 idx23 2
+110 3 idx26 1
+111 2 idx23 2
+1000 2 idx20 1
+1001 2 idx21 2
+1010 4 idx210 0
+1011 2 idx23 2
+1100 2 idx20 1
+1101 2 idx23 2
+1110 3 idx26 1
+1111 2 idx23 2
+10000 2 idx20 1
+10001 2 idx21 2
+10010 6 idx218 1
+10011 2 idx23 2
+10100 2 idx20 1
+10101 2 idx23 2
+10110 3 idx26 1
+10111 2 idx23 2
+11000 2 idx20 1
+11001 2 idx21 2
+11010 4 idx210 0
+11011 2 idx23 2
+11100 2 idx20 1
+11101 2 idx23 2
+11110 3 idx26 1
+11111 2 idx23 2
+100000 2 idx20 1
+100001 2 idx21 2
+100010 5 idx22 0
+100011 2 idx23 2
+100100 2 idx20 1
+100101 2 idx23 2
+100110 3 idx26 1
+100111 2 idx23 2
+101000 2 idx20 1
+101001 2 idx21 2
+101010 4 idx210 0
+101011 2 idx23 2
+101100 2 idx20 1
+101101 2 idx23 2
+101110 3 idx26 1
+101111 2 idx23 2
+110000 2 idx20 1
+110001 2 idx21 2
+110010 6 idx250 2
+110011 2 idx23 2
+110100 2 idx20 1
+110101 2 idx23 2
+110110 3 idx26 1
+110111 2 idx23 2
+111000 2 idx20 1
+111001 2 idx21 2
+111010 4 idx210 0
+111011 2 idx23 2
+111100 2 idx20 1
+111101 2 idx23 2
+111110 3 idx26 1
+111111 2 idx23 2
+Inserting 596 into bucket idx20
+
+=======================
+Hashcode, Local Depth, Bucket filename, Number of slots filled
+0 2 idx20 2
+1 2 idx21 2
+10 5 idx22 0
+11 2 idx23 2
+100 2 idx20 2
+101 2 idx23 2
+110 3 idx26 1
+111 2 idx23 2
+1000 2 idx20 2
+1001 2 idx21 2
+1010 4 idx210 0
+1011 2 idx23 2
+1100 2 idx20 2
+1101 2 idx23 2
+1110 3 idx26 1
+1111 2 idx23 2
+10000 2 idx20 2
+10001 2 idx21 2
+10010 6 idx218 1
+10011 2 idx23 2
+10100 2 idx20 2
+10101 2 idx23 2
+10110 3 idx26 1
+10111 2 idx23 2
+11000 2 idx20 2
+11001 2 idx21 2
+11010 4 idx210 0
+11011 2 idx23 2
+11100 2 idx20 2
+11101 2 idx23 2
+11110 3 idx26 1
+11111 2 idx23 2
+100000 2 idx20 2
+100001 2 idx21 2
+100010 5 idx22 0
+100011 2 idx23 2
+100100 2 idx20 2
+100101 2 idx23 2
+100110 3 idx26 1
+100111 2 idx23 2
+101000 2 idx20 2
+101001 2 idx21 2
+101010 4 idx210 0
+101011 2 idx23 2
+101100 2 idx20 2
+101101 2 idx23 2
+101110 3 idx26 1
+101111 2 idx23 2
+110000 2 idx20 2
+110001 2 idx21 2
+110010 6 idx250 2
+110011 2 idx23 2
+110100 2 idx20 2
+110101 2 idx23 2
+110110 3 idx26 1
+110111 2 idx23 2
+111000 2 idx20 2
+111001 2 idx21 2
+111010 4 idx210 0
+111011 2 idx23 2
+111100 2 idx20 2
+111101 2 idx23 2
+111110 3 idx26 1
+111111 2 idx23 2
 

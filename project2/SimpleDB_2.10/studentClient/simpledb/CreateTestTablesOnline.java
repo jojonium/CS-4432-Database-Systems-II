@@ -26,26 +26,11 @@ public class CreateTestTablesOnline {
   try {
    conn = d.connect(url, null);
    s=conn.createStatement();
-   /*s.executeUpdate("Create table test1" +
-     "( a1 int," +
-     "  a2 int"+
-   ")");*/
+
    s.executeUpdate("Create table test2" +
      "( a1 int," +
      "  a2 int"+
    ")");
-   /*s.executeUpdate("Create table test3" +
-     "( a1 int," +
-     "  a2 int"+
-   ")");
-   s.executeUpdate("Create table test4" +
-     "( a1 int," +
-     "  a2 int"+
-   ")");
-   s.executeUpdate("Create table test5" +
-     "( a1 int," +
-     "  a2 int"+
-   ")");*/
 
    s.executeUpdate("create sh index idx1 on test1 (a1)");
    s.executeUpdate("create eh index idx2 on test2 (a1)");
@@ -55,19 +40,6 @@ public class CreateTestTablesOnline {
 	   s.executeUpdate("insert into test2 (a1,a2) values("+rand.nextInt(1000)+","+rand.nextInt(1000)+ ")");
    }
    
-   
-   /*qry = "select a1, a2 "
-           + "from test2 ";
-   ResultSet rs = s.executeQuery(qry);
-
-   // Step 3: loop through the result set
-   System.out.println("Name\tMajor");
-   while (rs.next()) {
-	   int sname = rs.getInt("a1");
-	   int dname = rs.getInt("a2");
-	   System.out.println(sname + "\t" + dname);
-   }
-   rs.close();*/
    
    
    conn.close();
